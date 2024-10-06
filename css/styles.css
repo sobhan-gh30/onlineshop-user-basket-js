@@ -4,7 +4,7 @@
 @font-face {
     font-family: "Booter - Zero Zero";
     src: url("Fonts/Booter - Zero Zero.woff") format("woff"),
-         url("Fonts/Booter - Zero Zero.woff2") format("woff2");
+    url("Fonts/Booter - Zero Zero.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
 }
@@ -13,6 +13,12 @@
     box-sizing: border-box;
     font-family: Raleway, serif;
     color: #777;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
 }
 
 html, body {
@@ -21,53 +27,132 @@ html, body {
     min-height: 100%;
 }
 
-.Header{
+.Header {
     width: 100%;
     height: 5rem;
-    box-shadow: 0 0 0.3rem rgba(0 , 0 , 0 , 0.1);
+    box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.container{
+.headerBottom {
+    width: 100%;
+    height: 2rem;
+    padding: 3rem;
+}
+
+.headerBottom button {
+    width: 2rem;
+    height: 2rem;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    outline: none;
+    border-radius: 1rem 1rem 1rem 1rem;
+    scale: 1;
+    cursor: pointer;
+    transition: all 100ms ease-in-out;
+}
+
+.headerBottom button:hover + .header__basket, .header__basket:hover {
+    opacity: 1;
+    transform: scale(1, 1);
+}
+
+.header__basket {
+    transform: scale(0, 1);
+    transition: 250ms;
+    width: 95%;
+    height: fit-content;
+    background-color: #fff;
+    position: absolute;
+    box-shadow: 0 0 100rem rgba(0, 0, 0, 0.7);
+    opacity: 0;
+}
+
+.basket__heading {
+    font-family: "Metal Mania", serif;
+    font-size: 3rem;
+    text-align: center;
+    margin: 0;
+}
+
+.basket__products {
+    padding: 2rem;
+}
+
+.basket__product {
+    width: 100%;
+    height: 10rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 5rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.basket__product img {
+    height: 100%;
+}
+
+.basket__products input {
+    width: 3rem;
+    font-size: 1.2rem;
+    border: none;
+    outline: 1px solid cornflowerblue;
+}
+
+/*
+==================
+Container and products
+==================
+ */
+.container {
     margin: 5rem auto;
     width: 70rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill , 14rem);
+    grid-template-columns: repeat(auto-fill, 14rem);
     justify-content: center;
     flex-wrap: wrap;
     gap: 1.5rem;
 }
 
-.shopping__cart{
+.shopping__cart {
     height: 25rem;
     text-align: center;
     display: grid;
     grid-template-rows: 70% 30%;
 }
-.shopping__cart-img{
+
+.shopping__cart-img {
     margin: 0;
 }
-.shopping__cart-img-tag{
+
+.shopping__cart-img-tag {
     height: 100%;
 }
-.shopping__cart-info{
+
+.shopping__cart-info {
     margin: 0;
 }
-.shopping__cart-info h3{
+
+.shopping__cart-info h3 {
     color: rgba(0, 0, 0, 0.9);
 }
-.shopping__cart-info h3 , .shopping__cart-info h4{
+
+.shopping__cart-info h3, .shopping__cart-info h4 {
     margin: 0.3rem;
 }
-.shopping__cart-info button{
+
+.shopping__cart-info button {
     background: transparent;
     border: 1px solid rgba(0, 0, 0, 0.2);
     color: rgba(0, 0, 0, 0.7);
     transition: all 100ms ease-in-out;
 }
-.shopping__cart-info button:hover{
+
+.shopping__cart-info button:hover {
     border: 1px solid rgba(0, 0, 0, 0.5);
     color: rgba(0, 0, 0, 0.9);
 }

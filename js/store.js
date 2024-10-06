@@ -7,10 +7,12 @@ const guitars = [
     {"id" : 3 , "Brand" : "Gibson" , "Model" : "SG standard 61st" , "imgCode" : "123.png" , "price" : 2499},
     {"id" : 4 , "Brand" : "Gibson" , "Model" : "ES-335" , "imgCode" : "134.webp" , "price" : 1249 },
     {"id" : 5 , "Brand" : "Fender" , "Model" : "Tele player" , "imgCode" : "325.png" , "price" : 1999},
-    {"id" : 5 , "Brand" : "Fender" , "Model" : "Strar american pro II" , "imgCode" : "314.png" , "price" : 1999},
+    {"id" : 6 , "Brand" : "Fender" , "Model" : "Strar american pro II" , "imgCode" : "314.png" , "price" : 1999},
 ]
-let container
+let container , totalPrice , basketTable , userBasket
 container = document.querySelector(".container")
+userBasket = []
+
 
 
 guitars.forEach((event)=>{
@@ -40,7 +42,9 @@ guitars.forEach((event)=>{
 
     buyBtn = document.createElement('button')
     buyBtn.innerHTML = `Buy Now`
-
+    buyBtn.addEventListener("click" , ()=>{
+        addToUserBasket(event.id);
+    })
     shoppingCartInfo.append(shoppingCartInfoh3)
     shoppingCartInfo.append(shoppingCartInfoh4)
     shoppingCartInfo.append(buyBtn)
@@ -51,3 +55,36 @@ guitars.forEach((event)=>{
     container.append(shoppingCart)
 
 })
+
+function addToUserBasket(productID){
+    let mainGuitar;
+    mainGuitar = guitars.find((product)=>{
+        return product.id === productID
+    })
+    userBasket.push(mainGuitar)
+    showUserBasket(userBasket)
+}
+
+function showUserBasket(basket){
+    let basketProducts, basketProduct, basketImg, basketName,  basketPrice
+
+    basketProducts = document.querySelector(".basket__products");
+    basketProducts.innerHTML = ""
+
+    userBasket.forEach((guitar)=>{
+        basketProduct = document.createElement("div");
+        basketProduct.classList.add("basket__product")
+
+        basketImg = document.createElement("img");
+        basketImg.setAttribute("src" , `img/${guitar.imgCode}`)
+
+        basketName = document.createElement("h3");
+        basketName.textContent = `${guitar.Brand} ${guitar.Model}`
+
+        basketPrice = document.createElement("div");
+        basketPrice.textContent = `${guitar.price}$`
+
+        basketProduct.append(basketImg, basketName, basketPrice);
+        basketProducts.append(basketProduct);
+    })
+}
