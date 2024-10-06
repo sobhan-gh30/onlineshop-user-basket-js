@@ -5,8 +5,9 @@ const guitars = [
     {"id" : 1 , "Brand" : "Gibson" , "Model" : "Les Paul Access" , "imgCode" : "111.webp" , "price" : 5499},
     {"id" : 2 , "Brand" : "Epiphone" , "Model" : "Les Paul Standard 60th" , "imgCode" : "212.png" , "price" : 699 },
     {"id" : 3 , "Brand" : "Gibson" , "Model" : "SG standard 61st" , "imgCode" : "123.png" , "price" : 2499},
-    {"id" : 4 , "Brand" : "Fender" , "Model" : "Strat american pro II" , "imgCode" : "134.webp" , "price" : 1249 },
+    {"id" : 4 , "Brand" : "Gibson" , "Model" : "ES-335" , "imgCode" : "134.webp" , "price" : 1249 },
     {"id" : 5 , "Brand" : "Fender" , "Model" : "Tele player" , "imgCode" : "325.png" , "price" : 1999},
+    {"id" : 5 , "Brand" : "Fender" , "Model" : "Strar american pro II" , "imgCode" : "314.png" , "price" : 1999},
 ]
 let container
 container = document.querySelector(".container")
