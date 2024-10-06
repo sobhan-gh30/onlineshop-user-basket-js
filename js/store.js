@@ -1,3 +1,6 @@
+//I did not use any databases in this mini project
+//I stored my data into an array
+
 const guitars = [
     {"id" : 1 , "Brand" : "Gibson" , "Model" : "Les Paul Access" , "imgCode" : "111.webp" , "price" : 5499},
     {"id" : 2 , "Brand" : "Epiphone" , "Model" : "Les Paul Standard 60th" , "imgCode" : "212.png" , "price" : 699 },
