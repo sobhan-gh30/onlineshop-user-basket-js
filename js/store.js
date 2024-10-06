@@ -8,6 +8,9 @@ const guitars = [
     {"id" : 4 , "Brand" : "Gibson" , "Model" : "ES-335" , "imgCode" : "134.webp" , "price" : 1249 },
     {"id" : 5 , "Brand" : "Fender" , "Model" : "Tele player" , "imgCode" : "325.png" , "price" : 1999},
     {"id" : 6 , "Brand" : "Fender" , "Model" : "Strar american pro II" , "imgCode" : "314.png" , "price" : 1999},
+    {"id" : 7 , "Brand" : "Gretch" , "Model" : "White Falcon" , "imgCode" : "417.png" , "price" : 2349},
+    {"id" : 6 , "Brand" : "Hagstrom" , "Model" : "Fantomen White" , "imgCode" : "518.png" , "price" : 2500},
+    {"id" : 6 , "Brand" : "Hagstrom" , "Model" : "Fantomen Black" , "imgCode" : "519.png" , "price" : 2500},
 ]
 let container , totalPrice , basketTable , userBasket
 container = document.querySelector(".container")

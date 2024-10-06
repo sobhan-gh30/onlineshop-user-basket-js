@@ -73,8 +73,20 @@ html, body {
 .basket__heading {
     font-family: "Metal Mania", serif;
     font-size: 3rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
+    position: relative;
+}
+.basket__heading::before{
+    content: "";
+    width: 10rem;
+    height: 1px;
+    background-color: #eee;
+    display: block;
+    position: absolute;
+    bottom: 0;
 }
 
 .basket__products {
