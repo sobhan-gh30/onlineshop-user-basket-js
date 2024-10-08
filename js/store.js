@@ -69,10 +69,13 @@ function addToUserBasket(productID){
 }
 
 function showUserBasket(basket){
-    let basketProducts, basketProduct, basketImg, basketName,  basketPrice
+    let basketProducts, basketProduct, basketImg, basketName,  basketPrice, clearBasket, clearBasketBtn
 
     basketProducts = document.querySelector(".basket__products");
+    clearBasket = document.querySelector(".clearBasket")
+
     basketProducts.innerHTML = ""
+    clearBasket.innerHTML = ""
 
     userBasket.forEach((guitar)=>{
         basketProduct = document.createElement("div");
@@ -90,4 +93,17 @@ function showUserBasket(basket){
         basketProduct.append(basketImg, basketName, basketPrice);
         basketProducts.append(basketProduct);
     })
+    clearBasketBtn = document.createElement("button")
+    clearBasketBtn.innerHTML = "Crear All"
+    clearBasketBtn.classList.add("clearBasket__btn")
+    clearBasket.append(clearBasketBtn)
+
+    clearBasket.addEventListener("click" , ()=>{
+        clearUserBasket(userBasket)
+    })
+}
+
+function clearUserBasket(){
+    userBasket=[]
+    showUserBasket(userBasket)
 }
