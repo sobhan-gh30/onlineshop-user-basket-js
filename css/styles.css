@@ -133,12 +133,26 @@ html, body {
 .clearBasket__btn:hover{
     background-color: #dc3434;
 }
+.total__price{
+    width: 100%;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.total__price h2{
+    font-size: 2rem;
+}
+.total__price h3{
+    font-size: 1.5rem;
+}
 
 /*
 ==================
 Container and products
 ==================
  */
+
 .container {
     margin: 5rem auto;
     width: 70rem;
