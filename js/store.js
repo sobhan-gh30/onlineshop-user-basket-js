@@ -2,20 +2,21 @@
 //I stored my data into an array
 
 const guitars = [
-    {"id": 1, "Brand": "Gibson", "Model": "Les Paul Access", "imgCode": "111.webp", "price": 5499},
-    {"id": 2, "Brand": "Epiphone", "Model": "Les Paul Standard 60th", "imgCode": "212.png", "price": 699},
-    {"id": 3, "Brand": "Gibson", "Model": "SG standard 61st", "imgCode": "123.png", "price": 2499},
-    {"id": 4, "Brand": "Gibson", "Model": "ES-335", "imgCode": "134.webp", "price": 1249},
-    {"id": 5, "Brand": "Fender", "Model": "Tele player", "imgCode": "325.png", "price": 1999},
-    {"id": 6, "Brand": "Fender", "Model": "Strar american pro II", "imgCode": "314.png", "price": 1999},
-    {"id": 7, "Brand": "Gretch", "Model": "White Falcon", "imgCode": "417.png", "price": 2349},
-    {"id": 8, "Brand": "Hagstrom", "Model": "Fantomen White", "imgCode": "518.png", "price": 2500},
-    {"id": 9, "Brand": "Hagstrom", "Model": "Fantomen Black", "imgCode": "519.png", "price": 2500},
+    {"id": 1, "Brand": "Gibson", "Model": "Les Paul Access", "imgCode": "111.webp", "price": 5499 , "count":1},
+    {"id": 2, "Brand": "Epiphone", "Model": "Les Paul Standard 60th", "imgCode": "212.png", "price": 699 , "count":1},
+    {"id": 3, "Brand": "Gibson", "Model": "SG standard 61st", "imgCode": "123.png", "price": 2499 , "count":1},
+    {"id": 4, "Brand": "Gibson", "Model": "ES-335", "imgCode": "134.webp", "price": 1249 , "count":1},
+    {"id": 5, "Brand": "Fender", "Model": "Tele player", "imgCode": "325.png", "price": 1999 , "count":1},
+    {"id": 6, "Brand": "Fender", "Model": "Strar american pro II", "imgCode": "314.png", "price": 1999 , "count":1},
+    {"id": 7, "Brand": "Gretch", "Model": "White Falcon", "imgCode": "417.png", "price": 2349 , "count":1},
+    {"id": 8, "Brand": "Hagstrom", "Model": "Fantomen White", "imgCode": "518.png", "price": 2500 , "count":1},
+    {"id": 9, "Brand": "Hagstrom", "Model": "Fantomen Black", "imgCode": "519.png", "price": 2500 , "count":1},
 ]
 
 let container, totalPrice, basketTable, userBasket
 container = document.querySelector(".container")
 userBasket = []
+totalPrice = document.getElementById("totalPrice")
 
 guitars.forEach((event) => {
     let shoppingCart, shoppingCartImg, shoppingCartInfo, shoppingCartInfoh3, shoppingCartInfoh4, buyBtn
@@ -58,12 +59,11 @@ function addToUserBasket(productID) {
     })
     userBasket.push(mainGuitar)
     showUserBasket(userBasket)
+    calcTotalPrice(userBasket)
 }
 
 function showUserBasket(basket) {
-    let basketProducts, basketProduct, basketImg, basketName, basketPrice, clearBasket, clearBasketBtn, totalPrice, priceCounter
-
-    totalPrice = document.getElementById("totalPrice")
+    let basketProducts, basketProduct, basketImg, basketName, basketPrice, clearBasket, clearBasketBtn
 
     basketProducts = document.querySelector(".basket__products");
     clearBasket = document.querySelector(".clearBasket")
@@ -71,7 +71,6 @@ function showUserBasket(basket) {
     basketProducts.innerHTML = ""
     clearBasket.innerHTML = ""
 
-    priceCounter = 0
     userBasket.forEach((guitar) => {
         basketProduct = document.createElement("div");
         basketProduct.classList.add("basket__product")
@@ -85,17 +84,25 @@ function showUserBasket(basket) {
         basketPrice = document.createElement("div");
         basketPrice.textContent = `${guitar.price}$`
 
+        productQuantity = document.createElement("input");
+        productQuantity.value = guitar.count
+        productQuantity.classList.add("ProductQuantity")
+        productQuantity.setAttribute("type" , "number")
+        productQuantity.addEventListener("change",()=>{
+            priceCalculation(guitar.id , productQuantity.value)
+        })
+
         clearItemBtn = document.createElement("button")
         clearItemBtn.innerHTML = "Crear Item"
         clearItemBtn.classList.add("clearBasket__btn")
         clearItemBtn.addEventListener("click",()=>{
             clearItem(guitar.id);
         })
-        priceCounter+=guitar.price
-        basketProduct.append(basketImg, basketName, basketPrice, clearItemBtn);
+        basketProduct.append(basketImg, basketName, productQuantity, basketPrice, clearItemBtn);
         basketProducts.append(basketProduct);
+
+
     })
-    totalPrice.innerHTML  = `${priceCounter}$`
     clearBasketBtn = document.createElement("button")
     clearBasketBtn.innerHTML = "Crear All"
     clearBasketBtn.classList.add("clearBasket__btn")
@@ -105,13 +112,36 @@ function showUserBasket(basket) {
         clearUserBasket(userBasket)
     })
 }
+function calcTotalPrice (userBasketArray) {
+    let totalPriceValue = 0
+
+    userBasketArray.forEach(function (product) {
+        totalPriceValue += product.count * product.price
+    })
+
+    totalPrice.innerHTML = `${totalPriceValue}$`
+}
+
+function priceCalculation(guitar, quantity){
+    console.log("product id: " + guitar + ' new count: ' + quantity);
+
+    userBasket.forEach(function (product) {
+        if (product.id === guitar) {
+            product.count = quantity
+        }
+    })
+    calcTotalPrice(userBasket)
+}
 function clearUserBasket(){
     userBasket = []
     showUserBasket(userBasket)
+    totalPrice.innerHTML = "0$"
+
 }
 function clearItem(ID){
     userBasket = userBasket.filter((product)=>{
         return product.id !== ID
     })
     showUserBasket(userBasket)
+    calcTotalPrice(userBasket)
 }
