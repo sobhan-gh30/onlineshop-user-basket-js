@@ -1,6 +1,5 @@
 //I did not use any databases in this mini project
 //I stored my data into an array
-
 const guitars = [
     {"id": 1, "Brand": "Gibson", "Model": "Les Paul Access", "imgCode": "111.webp", "price": 5499 , "count":1},
     {"id": 2, "Brand": "Epiphone", "Model": "Les Paul Standard 60th", "imgCode": "212.png", "price": 699 , "count":1},
@@ -14,8 +13,8 @@ const guitars = [
 ]
 
 let container, totalPrice, basketTable, userBasket
-container = document.querySelector(".container")
 userBasket = []
+container = document.querySelector(".container")
 totalPrice = document.getElementById("totalPrice")
 
 guitars.forEach((event) => {
@@ -85,12 +84,13 @@ function showUserBasket(basket) {
         basketPrice.textContent = `${guitar.price}$`
 
         productQuantity = document.createElement("input");
-        productQuantity.value = guitar.count
         productQuantity.classList.add("ProductQuantity")
+        productQuantity.value = guitar.count
         productQuantity.setAttribute("type" , "number")
-        productQuantity.addEventListener("change",()=>{
-            priceCalculation(guitar.id , productQuantity.value)
-        })
+        productQuantity.addEventListener("change", (event) => {
+            let newQuantity = event.target.value;
+            priceCalculation(guitar.id, newQuantity); // تغییر تعداد کالا
+        });
 
         clearItemBtn = document.createElement("button")
         clearItemBtn.innerHTML = "Crear Item"
@@ -100,11 +100,9 @@ function showUserBasket(basket) {
         })
         basketProduct.append(basketImg, basketName, productQuantity, basketPrice, clearItemBtn);
         basketProducts.append(basketProduct);
-
-
     })
     clearBasketBtn = document.createElement("button")
-    clearBasketBtn.innerHTML = "Crear All"
+    clearBasketBtn.innerHTML = "Clear All"
     clearBasketBtn.classList.add("clearBasket__btn")
     clearBasket.append(clearBasketBtn)
 
@@ -127,7 +125,7 @@ function priceCalculation(guitar, quantity){
 
     userBasket.forEach(function (product) {
         if (product.id === guitar) {
-            product.count = quantity
+            product.count =  Number(quantity);
         }
     })
     calcTotalPrice(userBasket)
