@@ -12,45 +12,27 @@ const guitars = [
     {"id": 9, "Brand": "Hagstrom", "Model": "Fantomen Black", "imgCode": "519.png", "price": 2500 , "count":1},
 ]
 
-let container, totalPrice, basketTable, userBasket
+let container, totalPrice, basketTable, userBasket , buyBtn
 userBasket = []
 container = document.querySelector(".container")
 totalPrice = document.getElementById("totalPrice")
+buyBtn = document.querySelector('.button')
 
 guitars.forEach((event) => {
-    let shoppingCart, shoppingCartImg, shoppingCartInfo, shoppingCartInfoh3, shoppingCartInfoh4, buyBtn
-
-    shoppingCart = document.createElement("div");
-    shoppingCart.classList.add("shopping__cart");
-
-    shoppingCartImg = document.createElement("div");
-    shoppingCartImg.classList.add("shopping__cart-img");
-
-    shoppingCartImgTag = document.createElement("img");
-    shoppingCartImgTag.classList.add("shopping__cart-img-tag");
-    shoppingCartImgTag.setAttribute("src", `img/${event.imgCode}`);
-    shoppingCartImgTag.setAttribute("alt", `Guitar`);
-    shoppingCartImg.append(shoppingCartImgTag)
-
-    shoppingCartInfo = document.createElement("div")
-    shoppingCartInfo.classList.add("shopping__cart-info")
-
-    shoppingCartInfoh3 = document.createElement('h3')
-    shoppingCartInfoh3.innerHTML = `${event.Brand} ${event.Model}`
-
-    shoppingCartInfoh4 = document.createElement('h4')
-    shoppingCartInfoh4.innerHTML = `${event.price}$`
-
-    buyBtn = document.createElement('button')
-    buyBtn.innerHTML = `Buy Now`
-    buyBtn.addEventListener("click", () => {
-        addToUserBasket(event.id);
-    })
-    shoppingCartInfo.append(shoppingCartInfoh3, shoppingCartInfoh4, buyBtn)
-    shoppingCart.append(shoppingCartImg, shoppingCartInfo)
-    container.append(shoppingCart)
+    container.insertAdjacentHTML("beforeend" ,
+        `
+         <div class="shopping__cart">
+            <div class="shopping__cart-img">
+                <img class="shopping__cart-img-tag" src="img/${event.imgCode}" alt="Guitar">
+            </div>
+            <div class="shopping__cart-info">
+                <h3>${event.Brand} ${event.Model}</h3>
+                <h4>${event.price}$</h4>
+                <button onclick="addToUserBasket(${event.id})">Buy Now</button>
+            </div>
+         </div>`
+        )
 })
-
 function addToUserBasket(productID) {
     let mainGuitar;
     mainGuitar = guitars.find((product) => {
@@ -60,7 +42,6 @@ function addToUserBasket(productID) {
     showUserBasket(userBasket)
     calcTotalPrice(userBasket)
 }
-
 function showUserBasket(basket) {
     let basketProducts, basketProduct, basketImg, basketName, basketPrice, clearBasket, clearBasketBtn
 
@@ -71,46 +52,26 @@ function showUserBasket(basket) {
     clearBasket.innerHTML = ""
 
     userBasket.forEach((guitar) => {
-        basketProduct = document.createElement("div");
-        basketProduct.classList.add("basket__product")
 
-        basketImg = document.createElement("img");
-        basketImg.setAttribute("src", `img/${guitar.imgCode}`)
-
-        basketName = document.createElement("h3");
-        basketName.textContent = `${guitar.Brand} ${guitar.Model}`
-
-        basketPrice = document.createElement("div");
-        basketPrice.textContent = `${guitar.price}$`
-
-        productQuantity = document.createElement("input");
-        productQuantity.classList.add("ProductQuantity")
-        productQuantity.value = guitar.count
-        productQuantity.setAttribute("type" , "number")
-        productQuantity.setAttribute("min" , "1")
-        productQuantity.addEventListener("change", (event) => {
-            let newQuantity = event.target.value;
-            priceCalculation(guitar.id, newQuantity); // تغییر تعداد کالا
-        });
-
-        clearItemBtn = document.createElement("button")
-        clearItemBtn.innerHTML = "Crear Item"
-        clearItemBtn.classList.add("clearBasket__btn")
-        clearItemBtn.addEventListener("click",()=>{
-            clearItem(guitar.id);
-        })
-        basketProduct.append(basketImg, basketName, productQuantity, basketPrice, clearItemBtn);
-        basketProducts.append(basketProduct);
+        basketProducts.insertAdjacentHTML("beforeend",
+            `
+                    <div class="basket__product">
+                        <img src="img/${guitar.imgCode}">
+                        <h3>${guitar.Brand} ${guitar.Model}</h3>
+                        <input class="ProductQuantity" onchange="inputChange(event , ${guitar.id})" value="${guitar.count}" type="number" min="1">
+                        <div>${guitar.price}$</div>
+                        <button onclick="clearItem(${guitar.id})" class="clearBasket__btn">Crear Item</button>
+                    </div>
+            `)
     })
-    clearBasketBtn = document.createElement("button")
-    clearBasketBtn.innerHTML = "Clear All"
-    clearBasketBtn.classList.add("clearBasket__btn")
-    clearBasket.append(clearBasketBtn)
-
-    clearBasket.addEventListener("click", () => {
-        clearUserBasket(userBasket)
-    })
+    clearBasket.insertAdjacentHTML("beforeend" , `<button onclick="clearUserBasket(userBasket)" class="clearBasket__btn">Clear All</button>`)
 }
+
+function inputChange(event , guitar){
+    let newQuantity = event.target.value;
+    priceCalculation(guitar, newQuantity);
+}
+
 function calcTotalPrice (userBasketArray) {
     let totalPriceValue = 0
 
@@ -122,8 +83,6 @@ function calcTotalPrice (userBasketArray) {
 }
 
 function priceCalculation(guitar, quantity){
-    console.log("product id: " + guitar + ' new count: ' + quantity);
-
     userBasket.forEach(function (product) {
         if (product.id === guitar) {
             product.count =  Number(quantity);
@@ -135,7 +94,6 @@ function clearUserBasket(){
     userBasket = []
     showUserBasket(userBasket)
     totalPrice.innerHTML = "0$"
-
 }
 function clearItem(ID){
     userBasket = userBasket.filter((product)=>{
