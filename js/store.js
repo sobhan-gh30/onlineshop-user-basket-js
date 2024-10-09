@@ -87,6 +87,7 @@ function showUserBasket(basket) {
         productQuantity.classList.add("ProductQuantity")
         productQuantity.value = guitar.count
         productQuantity.setAttribute("type" , "number")
+        productQuantity.setAttribute("min" , "1")
         productQuantity.addEventListener("change", (event) => {
             let newQuantity = event.target.value;
             priceCalculation(guitar.id, newQuantity); // تغییر تعداد کالا
