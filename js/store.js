@@ -31,7 +31,7 @@ guitars.forEach((event) => {
                 <button onclick="addToUserBasket(${event.id})">Buy Now</button>
             </div>
          </div>`
-        )
+    )
 })
 function addToUserBasket(productID) {
     let mainGuitar;
